@@ -1,25 +1,13 @@
 pipeline {
     agent any
-
     stages {
-        stage('Clone Repo') {
+        stage('Show File Content') {
             steps {
-                echo 'Repo has been cloned successfully!'
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Running build step...'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
+                // อ่านไฟล์ hello.txt แล้วพิมพ์เนื้อหาใน console log
+                script {
+                    def content = readFile 'hello.txt'
+                    echo "Content of hello.txt:\n${content}"
+                }
             }
         }
     }
