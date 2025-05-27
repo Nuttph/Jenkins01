@@ -1,5 +1,4 @@
 pipeline{
-    agent any
     stages{
         stage('shell step 1'){
             steps{
