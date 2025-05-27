@@ -1,4 +1,4 @@
-piepline{
+pipeline{
     agent any
     stages{
        stage('Tier 1'){
