@@ -1,39 +1,27 @@
-pipeline {
-    agent any
-    stages {
-        stage('Initialize') {
-            steps {
-                echo 'Initializing...'
+pipeline{
+    stages{
+        stage('Start'){
+            steps{
+                echo 'Pipeline started'
             }
         }
-
-        stage('Tier 1') {
-            steps {
-                echo "Running Tier 1 tests"
-                sh 'git checkout main'
-                sh 'git pull origin main'
-            }
-        }
-
-        stage('Check File Content') {
-            steps {
+        stage('Read File Content') {
+            steps{
                 script {
-                    def fileContent = readFile('text.txt').trim()
-                    echo "File content is: ${fileContent}"
+                    // Define the path to the file
+                    def filePath = 'path/to/your/file.txt'
                     
-                    // Save to environment variable for next stages
-                    env.SHOULD_MERGE = (fileContent == "testpipeline") ? "true" : "false"
+                    // Read the file content
+                    def fileContent = readFile(filePath)
+                    
+                    // Print the content to the console
+                    echo "File Content: ${fileContent}"
                 }
             }
         }
-
-        stage('Tier 2 (Conditional Merge)') {
-            when {
-                expression { env.SHOULD_MERGE == "true" }
-            }
-            steps {
-                echo "Merging dev-test into main"
-                sh 'git merge origin/dev-test'
+        stage('End'){
+            steps{
+                echo 'Pipeline completed'
             }
         }
     }
